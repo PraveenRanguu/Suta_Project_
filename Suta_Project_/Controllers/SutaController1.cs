@@ -23,14 +23,14 @@ namespace Suta_Project.Controllers
         }
 
 
-        [HttpGet, Route("api/Users")]
+        [HttpGet, Route("api/Suta/Getusers")]
         public IEnumerable<Customerdetails> Getusers()
         {
             return _sutaService.GetCustomerdetails();
         }
 
 
-        [HttpPost, Route("api/InsertUser/{Name}/{Password}/{Email}/{Phnno}/{Gender}")]
+        [HttpPost, Route("api/Suta/InsertUser")]
         public IEnumerable<Customerdetails> InsertUser(Customerdetails Student1)
         {
             if (_sutaService.InsertCustomer(Student1))
@@ -41,7 +41,7 @@ namespace Suta_Project.Controllers
             return Enumerable.Empty<Customerdetails>();
         }
 
-        [HttpPost, Route("api/Login")]
+        [HttpPost, Route("api/Suta/Suta_Login")]
         public bool Suta_Login(string Email, string Password1)
         {
             if (_sutaService.user_Login(Email, Password1))
@@ -56,20 +56,13 @@ namespace Suta_Project.Controllers
 
 
 
-        [HttpGet, Route("api/ForgotPassword")]
-        public bool ForgotPWd(string Pwd, string email)
+        [HttpGet, Route("api/Suta/ForgotPWd")]
+        public string ForgotPWd(string email)
         {
-            if (_sutaService.ForgotPassword(Pwd, email))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return _sutaService.ForgotPassword(email);
         }
 
-        [HttpPost, Route("api/DeleteUser")]
+        [HttpPatch, Route("api/Suta/delete")]
         public bool delete(string Name)
         {
             if (_sutaService.DeleteUser(Name))
