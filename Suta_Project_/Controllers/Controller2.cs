@@ -46,12 +46,57 @@ namespace Suta_Project.Controllers
         [HttpGet, Route("api/Controller2/product_finding")]
         public IEnumerable<productdetails> GetProducts3(int p_id)
         {
-            
+            IEnumerable<productdetails> temp = _productService.Getproductdetails();
+            if (temp.Any(p => p.product_id == p_id))
+            {
                 return _productService.Select_product_id(p_id);
-           
-        }
-    }
+            }
+            return Enumerable.Empty<productdetails>();
 
+        }
+
+        [HttpPut, Route("api/Suta/Insertproduct")]
+        public bool InsertUser(productdetails product)
+        {
+
+            if (_productService.Insertproducts(product))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+
+        [HttpDelete, Route("api/Suta/deleteproduct")]
+        public bool delete(int _id)
+        {
+            if (_productService.DeleteProduct(_id))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        [HttpGet, Route("api/Controller2/GetallCategories")]
+        public IEnumerable<SutaCategories> GetCategory()
+        {
+            return _productService.GetCategorydetails();
+
+        }
+
+
+        [HttpGet, Route("api/Controller2/GetCategorisbyid")]
+        public IEnumerable<SutaCategories> GetCategory(string c_id)
+        {
+            return _productService.GetCategoriesbyId(c_id);
+        }
+
+
+    }
 }
 
 
